@@ -56,13 +56,13 @@ flowchart LR
 
 ## Deploy de uma API na Azure
 
-## Cenário do Projeto
+### Cenário do Projeto
 
 Este projeto tem como objetivo demonstrar como realizar o deploy de uma API de forma eficiente e escalável na **Microsoft Azure**. APIs são componentes essenciais em sistemas modernos, pois permitem a comunicação entre aplicações, serviços e dispositivos. Utilizar os recursos da Azure para hospedar e gerenciar uma API garante alta disponibilidade, segurança, escalabilidade e facilidade de manutenção, sem a necessidade de infraestrutura física dedicada.
 
 ---
 
-## Objetivos do Projeto
+### Objetivos do Projeto
 
 O desenvolvimento e deploy desta API foram guiados pelos seguintes objetivos:
 
@@ -74,7 +74,7 @@ O desenvolvimento e deploy desta API foram guiados pelos seguintes objetivos:
 
 ---
 
-## Tecnologias e Arquitetura
+### Tecnologias e Arquitetura
 
 A arquitetura proposta combina os seguintes serviços da Azure:
 
@@ -85,7 +85,7 @@ A arquitetura proposta combina os seguintes serviços da Azure:
 
 ---
 
-## Como o Deploy Funciona
+### Como o Deploy Funciona
 
 O fluxo de deploy e uso da API segue os seguintes passos:
 
@@ -98,7 +98,7 @@ O fluxo de deploy e uso da API segue os seguintes passos:
 
 ---
 
-## Fluxo Arquitetural
+### Fluxo Arquitetural
 
 ```mermaid
 flowchart LR
@@ -113,10 +113,44 @@ flowchart LR
 
 ---
 
-## Próximos Passos e Oportunidades de Expansão
+### Próximos Passos e Oportunidades de Expansão
 
 * **Escalabilidade Avançada:** Configurar regras de auto scale no Azure App Service para ajustar automaticamente os recursos com base na demanda.  
 * **Segurança Aprimorada:** Adicionar autenticação baseada em OAuth 2.0 e integração com o **Azure Active Directory**.  
 * **Observabilidade:** Criar dashboards personalizados no Power BI ou Grafana a partir dos dados coletados pelo Azure Monitor.  
 * **Expansão Multi-Região:** Implantar a API em diferentes regiões da Azure para reduzir latência e aumentar a disponibilidade global.  
+
+
+## Projeto: Azure Functions com Storage Account e CosmosDB  
+
+### Introdução  
+Este projeto demonstra como criar uma infraestrutura em nuvem utilizando **Azure Functions**, integrando **Storage Account** para armazenamento de arquivos e **CosmosDB** para persistência de dados. Também serão implementadas funções específicas para filtrar e listar registros no banco.  
+
+---
+
+### Criando a Infra Estrutura em Cloud  
+Primeiro, criamos os recursos no **Azure** usando o **Azure CLI**:  
+
+```bash
+# Criar um Resource Group
+az group create --name rg-functions --location eastus
+
+# Criar uma Storage Account
+az storage account create --name storagefuncteste \
+  --location eastus \
+  --resource-group rg-functions \
+  --sku Standard_LRS
+
+# Criar um CosmosDB (API Core/SQL)
+az cosmosdb create --name cosmosfuncteste \
+  --resource-group rg-functions \
+  --kind GlobalDocumentDB
+
+# Criar um Function App
+az functionapp create --resource-group rg-functions \
+  --consumption-plan-location eastus \
+  --runtime dotnet \
+  --functions-version 4 \
+  --name functionapp-teste \
+  --storage-account storagefuncteste
 
